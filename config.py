@@ -3,24 +3,28 @@
 STRATUM_HOST = "0.0.0.0"
 STRATUM_PORT = 8080
 
-# Coin address where money goes. If you mine direct to the exchange, you MUST specify payment_id together with wallet of exchange.
-WALLET = '466KoUjvbFE2SduDyiZQUb5QviKo6qnbyDGDB46C6UcTDi5XmVtSXuRYJDmgd6mhYPU92xJHsTQyrSjLbsxdzKQc3Z1PZQM'
-# Only if you mine direct to the exchange
-PAYMENT_ID = ''
+
+# Main pools config
+POOLS = {
+    'xmr': {
+        'host': 'pool.supportxmr.com',
+        'port': 80,
+        'username': '473qNSUfaUTNNuY6awojiDjfgoEGdSnptUnBnozEt7Cj19KKhmKXNPLhhXAcSTAC55UKEbryfVqj9HKGVaU99Mgj1CKkNxx',
+        'password': 'x',
+    },
+    'etn': {
+        'host': 'pool.electroneum.hashvault.pro',
+        'port': 80,
+        'username': 'etnjzKFU6ogESSKRZZbdqraPdcKVxEC17Cm1Xvbyy76PARQMmgrgceH4krAH6xmjKwJ3HtSAKuyFm1BBWYqtchtq9tBap8Qr4M.eecc02667948320980e87c8307a6fb0d71f154707db0be9e6fc5eb921108474d',
+        'password': 'x',
+    },
+}
+
 
 # It's useful for individually monitoring and statistic.
 # In your workers you have to use any number as username (without wallet!)
 ENABLE_WORKER_ID = True
 WORKER_ID_FROM_IP = False
-
-# On DwarfPool you have option to monitor your workers via email.
-# If WORKER_ID is enabled, you can monitor every worker/rig separately.
-MONITORING = True
-MONITORING_EMAIL = 'mail@example.com'
-
-# Main pool
-POOL_HOST = 'xmr-eu.dwarfpool.com'
-POOL_PORT = 8050
 
 # Failover pool
 POOL_FAILOVER_ENABLE = False
@@ -28,6 +32,6 @@ POOL_HOST_FAILOVER = 'xmr-usa.dwarfpool.com'
 POOL_PORT_FAILOVER = 8050
 
 # ERROR, INFO, DEBUG
-LOGLEVEL = 'DEBUG'
+LOGLEVEL = 'INFO'
 DEBUG = True
 LOGFILE = "logfile.log"

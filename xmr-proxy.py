@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+"""Usage:
+    python xmr-proxy.py pool_name
+
+eg:
+    python xmr-proxy.py xmr
+"""
+
+
+import sys
 import time
 import os
 import socket
@@ -10,11 +19,17 @@ import stratum.logger
 log = stratum.logger.get_logger('proxy')
 
 if __name__ == '__main__':
-    if (settings.PAYMENT_ID and len(settings.PAYMENT_ID)!=64) or (len(settings.WALLET)!=95 and len(settings.WALLET)!=106):
-        log.error("Wrong PAYMENT_ID or WALLET !!!")
-        quit()
-    settings.CUSTOM_USER = settings.WALLET if not settings.PAYMENT_ID else "%s.%s" % (settings.WALLET, settings.PAYMENT_ID)
-    settings.CUSTOM_PASSWORD = settings.MONITORING_EMAIL if settings.MONITORING_EMAIL and settings.MONITORING else "1"
+    if len(sys.argv) < 2:
+        print(__doc__)
+        exit()
+    
+    pool_name = sys.argv[1]
+    config = settings.POOLS[pool_name]
+    
+    settings.POOL_HOST = config['host']
+    settings.POOL_PORT = config['port']
+    settings.CUSTOM_USER = config['username']
+    settings.CUSTOM_PASSWORD = config['password']
 
 from twisted.internet import reactor, defer, protocol
 from twisted.internet import reactor as reactor2
